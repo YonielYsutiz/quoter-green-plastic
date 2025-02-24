@@ -1,4 +1,10 @@
 <template>
+    <div>
+      <el-menu  :default-active="activeIndex" class="el-menu-demo" mode="horizontal" :ellipsis="false" @select="handleSelect">
+        <el-menu-item><router-link to="/register">Registrar</router-link></el-menu-item>
+      </el-menu>
+    </div>
+  
     <div class="form-container">
         <el-form
         ref="ruleFormRef"
@@ -18,7 +24,7 @@
             <el-input v-model="ruleForm.password" type="password" autocomplete="off" />
         </el-form-item>
         <el-form-item>
-            <el-button type="primary" @click="submitLogin(ruleFormRef)">Submit</el-button>
+            <el-button type="success" @click="submitLogin(ruleFormRef)">Submit</el-button>
             <el-button @click="resetForm(ruleFormRef)">Reset</el-button>
         </el-form-item>
         </el-form>
@@ -70,13 +76,18 @@
   </script>
   
   <style scoped>
-/* Contenedor para centrar el formulario */
+
+a {
+  text-decoration: none;
+  color: inherit;
+}  
+
 .form-container {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #f3f4f6; /* Color de fondo de la página */
+  background-color: #f3f4f6;
 }
 
 .demo-ruleForm {
@@ -116,24 +127,5 @@
   padding: 10px 20px;
   border-radius: 8px;
   margin-right: 10px;
-}
-
-.el-button[type="primary"] {
-  background-color: #409eff;
-  color: #fff;
-  border-color: #409eff;
-}
-
-.el-button[type="primary"]:hover {
-  background-color: #66b1ff;
-}
-
-.el-button:hover {
-  background-color: #f2f2f2;
-  border-color: #ddd;
-}
-
-.el-button:focus {
-  box-shadow: 0 0 0 3px rgba(64, 158, 255, 0.3);
 }
 </style>
