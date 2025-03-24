@@ -3,7 +3,10 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsersController;
-
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\TypeNutController;
+use App\Http\Controllers\TypeScrewsController;
+use App\Http\Controllers\TypeWasherController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -22,3 +25,8 @@ use App\Http\Controllers\UsersController;
 Route::post('/userRegister', [UsersController::class, 'createUser']);
 Route::get('/users', [UsersController::class, 'index']);
 Route::post('/userLogin', [UsersController::class, 'login']);
+Route::post('/productRegister', [ProductController::class, 'createProduct']);
+Route::get('/products', [ProductController::class, 'index']);
+Route::get('/typeNuts', [TypeNutController::class, 'index']);
+Route::get('/typeScrews', [TypeScrewsController::class, 'index']);
+Route::get('/typeWashers', [TypeWasherController::class, 'index']);

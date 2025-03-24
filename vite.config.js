@@ -15,5 +15,13 @@ export default defineConfig({
         alias: {
             'vue': 'vue/dist/vue.esm-bundler.js'
         }
-    }
+    },
+    build: {
+        outDir: 'public/build', // Asegura que se genere en public/build
+        manifest: true, // Genera manifest.json
+        rollupOptions: {
+            input: 'resources/js/app.js',
+        },
+    },
+    base: '/quoter/',
 });
