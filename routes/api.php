@@ -30,3 +30,4 @@ Route::get('/products', [ProductController::class, 'index']);
 Route::get('/typeNuts', [TypeNutController::class, 'index']);
 Route::get('/typeScrews', [TypeScrewsController::class, 'index']);
 Route::get('/typeWashers', [TypeWasherController::class, 'index']);
+Route::get('searchProduct', [ProductController::class, 'search']);
