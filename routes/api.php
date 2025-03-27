@@ -7,6 +7,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\TypeNutController;
 use App\Http\Controllers\TypeScrewsController;
 use App\Http\Controllers\TypeWasherController;
+use App\Http\Controllers\QuoterController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -31,3 +32,5 @@ Route::get('/typeNuts', [TypeNutController::class, 'index']);
 Route::get('/typeScrews', [TypeScrewsController::class, 'index']);
 Route::get('/typeWashers', [TypeWasherController::class, 'index']);
 Route::get('searchProduct', [ProductController::class, 'search']);
+
+Route::post('/quoter', [QuoterController::class, 'store']);

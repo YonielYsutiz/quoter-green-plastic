@@ -109,14 +109,40 @@
                 </el-form-item>
               </el-col>
               <el-col :span="8">
-                <el-form-item label="Cantidad">
+                <el-form-item label="Descargue de inventario">
                   <el-input v-model="form.nit" />
                 </el-form-item>
               </el-col>
               <el-col :span="8">
-                <el-form-item label="Descargue de inventario">
+                <el-form-item label="Cantidad">
                   <el-input v-model="form.nit" />
                 </el-form-item>
+              </el-col>
+              <el-col>
+                <el-form-item label="Descripcion">
+                  <el-input type="textarea" v-model="form.nit" />
+                </el-form-item>
+              </el-col>
+              <el-col>
+                <el-table
+                  :data="tableData"
+                  border
+                  style="width: 100%">
+                  <el-table-column
+                    prop="date"
+                    label="Date"
+                    width="180">
+                  </el-table-column>
+                  <el-table-column
+                    prop="name"
+                    label="Name"
+                    width="180">
+                  </el-table-column>
+                  <el-table-column
+                    prop="address"
+                    label="Address">
+                  </el-table-column>
+                </el-table>
               </el-col>
             </el-row>
           </el-form>
@@ -255,6 +281,7 @@
 <script lang="ts" setup>
 import { reactive } from 'vue'
 
+const ++  
 const activeIndex = "1"
 const form = reactive({
   cliente: '',
