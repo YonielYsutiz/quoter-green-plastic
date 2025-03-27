@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('product_features', function (Blueprint $table) {
             $table->id();
+            $table->string('product_id');
             $table->string('weight')->nullable();
             $table->string('height')->nullable();
             $table->string('AL')->nullable();

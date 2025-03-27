@@ -10,6 +10,7 @@ class ProductFeature extends Model
     use HasFactory;
 
     protected $fillable = [
+        'product_id',
         'upper_profile_amount', # perfil superior cantidad
         'upper_profile_reference_id',  # perfil superior referencia ID
         'lower_profile_amount', # perfil inferior cantidad
