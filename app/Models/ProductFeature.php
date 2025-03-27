@@ -28,4 +28,30 @@ class ProductFeature extends Model
         'resistance_dynamic',  # resistencia dinamica KG
         'resistance_vacuum', # resistencia al vacio KG
     ];
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class, 'product_id');
+    }
+
+    protected $hidden = [
+        'weight',
+        'height',
+        'AL',
+        'R',
+        'H',
+        'FL',
+        '4E',
+        'CH',
+        'DT',
+        'TP',
+        'RMT',
+        'EX',
+        'T',
+        'M',
+        'MC',
+        'MI',
+        'HD',
+        'A'
+    ];
 }

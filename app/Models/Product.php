@@ -22,6 +22,11 @@ class Product extends Model
         'warranty'
     ];
 
+    public function productFeatures()
+    {
+        return $this->hasOne(ProductFeature::class, 'product_id');
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *
