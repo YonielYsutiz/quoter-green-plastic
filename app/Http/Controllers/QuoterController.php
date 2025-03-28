@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Quoter;
 use Illuminate\Http\Request;
-use Barryvdh\DomPDF\Facade as PDF;
+use Barryvdh\DomPDF\Facade\PDF;
+use App\Models\Product;
 
 class QuoterController extends Controller
 {
@@ -49,11 +50,14 @@ class QuoterController extends Controller
             'product_general_data' => json_encode($request->product_general_data),
         ]);
 
+        $productos = Product::all();
+
         // Generamos el PDF a partir de la vista y los datos
-        $pdf = PDF::loadView('pdf', compact('quoter'));
+        $pdf = PDF::loadView('pdf', compact('quoter', 'productos'))->setPaper('a4', 'landscape') // Configura la página en horizontal
+            ->setOptions(['dpi' => 150, 'defaultFont' => 'sans-serif']);;
 
         // return response()->json(['message' => 'Cotizacion creada con exito', 'product' => $product]);
-        return $pdf->stream('quoter.pdf');
+        return $pdf->download('quoter.pdf');
     }
 
     /**
