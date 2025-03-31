@@ -35,8 +35,6 @@ class ProductFeature extends Model
     }
 
     protected $hidden = [
-        'weight',
-        'height',
         'AL',
         'R',
         'H',
