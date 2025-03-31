@@ -50,10 +50,23 @@ class QuoterController extends Controller
             'product_general_data' => json_encode($request->product_general_data),
         ]);
 
-        $productos = Product::all();
+        $quoter["invoice_general_data"] = json_decode(
+            $quoter->invoice_general_data,
+            true
+        );
+
+        $quoter["order_terms"] = json_decode(
+            $quoter->order_terms,
+            true
+        );
+
+        $quoter["product_general_data"] = json_decode(
+            $quoter->product_general_data,
+            true
+        );
 
         // Generamos el PDF a partir de la vista y los datos
-        $pdf = PDF::loadView('pdf', compact('quoter', 'productos'))->setPaper('A4', 'portrait')
+        $pdf = PDF::loadView('pdf', compact('quoter'))->setPaper('A4', 'portrait')
             ->setOptions(['dpi' => 150, 'defaultFont' => 'sans-serif']);;
 
         // return response()->json(['message' => 'Cotizacion creada con exito', 'product' => $product]);
