@@ -13,21 +13,25 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 18px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            font-size: 12px;
         }
 
         th,
         td {
             padding: 5px;
             text-align: left;
+            vertical-align: middle;
         }
 
         td {
             width: auto;
             padding: 5px;
             text-align: left;
-            vertical-align: middle;
         }
+
 
         .header {
             text-align: center;
@@ -43,12 +47,12 @@
 <body>
     <table>
         <tr>
-            <td colspan="1"><img src="logo.png" alt="Logo Green Plastic" class="logo"></td>
+            <td><img src="logo.png" alt="Logo Green Plastic" class="logo"></td>
             <td colspan="2" class="header">GREEN PLASTIC COLOMBIA SAS<br>NIT. 900.794.260-1</td>
-            <td colspan="1">VERSIÓN 2024-2</td>
+            <td>VERSIÓN 2024-2</td>
         </tr>
         <tr>
-            <td colspan="4">Kilómetro 1.5 vía Siberia - Cota Parque Industrial Potrero Chico Robles 2 Bodega 2</td>
+            <td colspan="3">Kilómetro 1.5 vía Siberia - Cota Parque Industrial Potrero Chico Robles 2 Bodega 2</td>
         </tr>
         <tr>
             <td>Fecha</td>
@@ -64,21 +68,21 @@
         </tr>
         <tr>
             <td>Cliente</td>
-            <td colspan="7"><input type="text" value="0"></td>
+            <td colspan="3"><input type="text" value="0"></td>
         </tr>
         <tr>
             <td>Dirección entrega</td>
-            <td colspan="7"><input type="text" value="0"></td>
+            <td colspan="3"><input type="text" value="0"></td>
         </tr>
         <tr>
             <td>Contacto comercial</td>
-            <td colspan="7"><input type="text" value="0"></td>
+            <td colspan="3"><input type="text" value="0"></td>
         </tr>
         <tr>
             <td>Teléfono contacto</td>
             <td><input type="text" value="0"></td>
             <td>Persona que recibe</td>
-            <td colspan="5"><input type="text"></td>
+            <td colspan="1"><input type="text"></td>
         </tr>
     </table>
     <br>
@@ -86,7 +90,7 @@
         <tr>
             <th>Item</th>
             <th>Cantidad</th>
-            <th>Referencia</th>
+            <th>Referencia</th> 
             <th>Observaciones</th>
         </tr>
         <tr>

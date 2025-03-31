@@ -53,7 +53,7 @@ class QuoterController extends Controller
         $productos = Product::all();
 
         // Generamos el PDF a partir de la vista y los datos
-        $pdf = PDF::loadView('pdf', compact('quoter', 'productos'))->setPaper('a4', 'landscape') // Configura la página en horizontal
+        $pdf = PDF::loadView('pdf', compact('quoter', 'productos'))->setPaper('A4', 'portrait')
             ->setOptions(['dpi' => 150, 'defaultFont' => 'sans-serif']);;
 
         // return response()->json(['message' => 'Cotizacion creada con exito', 'product' => $product]);
