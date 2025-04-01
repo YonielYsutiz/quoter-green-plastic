@@ -43,19 +43,19 @@
 <body>
     <table>
         <tr>
-            <td colspan="1"><img src="https://greenplastic.co/wp-content/uploads/2021/07/Logo_green_plastic_verde_webR.svg"  style="width: 30%" alt="Logo Green Plastic" class="logo"></td>
+            <td colspan="1"><img src="{{ public_path('green-plastic.jpg') }}" style="width: 30%" alt="Green Plastic" class="logo"></td>
             <td colspan="2" class="header">GREEN PLASTIC COLOMBIA SAS<br>NIT. 900.794.260-1</td>
             <td colspan="1">VERSIÓN 2024-2</td>
         </tr>
         <tr>
-            <td colspan="4">Kilómetro 1.5 vía Siberia - Cota Parque Industrial Potrero Chico Robles 2 Bodega 2</td>
+            <td colspan="4" style="text-align: center; padding-bottom: 30px;">Kilómetro 1.5 vía Siberia - Cota Parque Industrial Potrero Chico Robles 2 Bodega 2</td>
         </tr>
         <tr>
             <td>Fecha</td>
             <td>{{ $quoter->created_at }}</td>
             <td>Remisión No</td>
             <td>{{ $quoter->invoice_general_data['remission_number'] }}</td>
-            
+
         </tr>
         <tr>
             <td>O.T. No</td>
@@ -95,22 +95,22 @@
         </thead>
         <tbody>
             @foreach($quoter->product_general_data as $item)
-                <tr>
-                    <td style="border: 1px solid black;">{{ $item['type_reference'] }}</td> <!-- Mostrar el precio del producto -->
-                    <td style="border: 1px solid black;">{{ $item['standar_reference'] }}</td> <!-- Mostrar el nombre del producto -->
-                    <td style="border: 1px solid black;">{{ $item['product_invoice_data']['quantity_total'] }}</td> <!-- Mostrar el precio del producto -->
-                    <td style="border: 1px solid black;">
-                        @foreach($item['product_items_manufact'] as $item_manufact)
-                            <ul>
-                                <li>{{ $item_manufact['quantity_type_of_piece'] }}: {{$item_manufact['type_of_piece']}}</li>
-                                <li>{{ $item_manufact['type_caracterist_manu'] }}</li>
-                                <li>Peso: {{ $item_manufact['manu_weight'] }}</li>
-                                <li>Altura: {{ $item_manufact['manu_length'] }}</li>
-                            </ul>
-                        @endforeach
-                    </td>
-                    <td style="border: 1px solid black;">{{ $item['description'] }}</td>
-                </tr>
+            <tr>
+                <td style="border: 1px solid black;">{{ $item['type_reference'] }}</td> <!-- Mostrar el precio del producto -->
+                <td style="border: 1px solid black;">{{ $item['standar_reference'] }}</td> <!-- Mostrar el nombre del producto -->
+                <td style="border: 1px solid black;">{{ $item['product_invoice_data']['quantity_total'] }}</td> <!-- Mostrar el precio del producto -->
+                <td style="border: 1px solid black;">
+                    @foreach($item['product_items_manufact'] as $item_manufact)
+                    <ul>
+                        <li>{{ $item_manufact['quantity_type_of_piece'] }}: {{$item_manufact['type_of_piece']}}</li>
+                        <li>{{ $item_manufact['type_caracterist_manu'] }}</li>
+                        <li>Peso: {{ $item_manufact['manu_weight'] }}</li>
+                        <li>Altura: {{ $item_manufact['manu_length'] }}</li>
+                    </ul>
+                    @endforeach
+                </td>
+                <td style="border: 1px solid black;">{{ $item['description'] }}</td>
+            </tr>
             @endforeach
         </tbody>
     </table>
@@ -118,22 +118,24 @@
     <table>
         <tr>
             <td>Transportado por</td>
-            <td colspan="3"><input type="text"></td>
         </tr>
         <tr>
             <td>Cédula</td>
-            <td><input type="text"></td>
             <td>Placa</td>
-            <td><input type="text"></td>
         </tr>
         <tr>
             <td>Teléfono</td>
-            <td><input type="text"></td>
             <td>Firma transportador</td>
             <td></td>
         </tr>
-        <tr>
-            <td colspan="4">Nombre - Firma - Fecha de entrega - Sello</td>
+        <td colspan="4" style="padding-top: 60px; padding-bottom: 60px;">
+            <div style="display: inline-block; text-align: center; width: 80%;">
+                <div style="border-top: 1px solid #000; width: 100%; margin-bottom: 5px;"></div>
+                <span style="font-size: 0.8em; color: #555;">
+                    Nombre - Firma - Fecha de entrega - Sello
+                </span>
+            </div>
+        </td>
         </tr>
     </table>
 </body>
