@@ -14,8 +14,17 @@ class QuoterController extends Controller
      */
     public function index()
     {
-        //
+        $quoters = Quoter::all();
+
+        foreach ($quoters as $quoter) {
+            $quoter["invoice_general_data"] = json_decode($quoter->invoice_general_data, true);
+            $quoter["order_terms"] = json_decode($quoter->order_terms, true);
+            $quoter["product_general_data"] = json_decode($quoter->product_general_data, true);
+        }
+
+        return response()->json($quoters);
     }
+
 
     /**
      * Show the form for creating a new resource.

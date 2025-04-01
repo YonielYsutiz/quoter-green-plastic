@@ -34,3 +34,5 @@ Route::get('/typeWashers', [TypeWasherController::class, 'index']);
 Route::get('searchProduct', [ProductController::class, 'search']);
 
 Route::post('/quoter', [QuoterController::class, 'store']);
+Route::get('/quoters', [QuoterController::class, 'index']);
+Route::get('/quoters/{id}/download', [QuoterController::class, 'downloadPdf']);
