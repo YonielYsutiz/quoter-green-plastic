@@ -89,28 +89,29 @@
                 <th style="border: 1px solid black;">Item</th>
                 <th style="border: 1px solid black;">Referencia</th>
                 <th style="border: 1px solid black;">Cantidad</th>
-                <th style="border: 1px solid black;">Piezas para fabricar</th>
                 <th style="border: 1px solid black;">Observaciones</th>
             </tr>
         </thead>
         <tbody>
-            @foreach($quoter->product_general_data as $item)
+            @foreach((array)$quoter->product_general_data as $item)
+            @if(is_array($item)) <!-- Verifica si es un array -->
             <tr>
-                <td style="border: 1px solid black;">{{ $item['type_reference'] }}</td> <!-- Mostrar el precio del producto -->
-                <td style="border: 1px solid black;">{{ $item['standar_reference'] }}</td> <!-- Mostrar el nombre del producto -->
-                <td style="border: 1px solid black;">{{ $item['product_invoice_data']['quantity_total'] }}</td> <!-- Mostrar el precio del producto -->
-                <td style="border: 1px solid black;">
-                    @foreach($item['product_items_manufact'] as $item_manufact)
+                <td style="border: 1px solid black;">{{ $item['type_reference'] ?? 'N/A' }}</td>
+                <td style="border: 1px solid black;">{{ $item['standar_reference'] ?? 'N/A' }}</td>
+                <td style="border: 1px solid black;">{{ $item['product_invoice_data']['quantity_total'] ?? 'N/A' }}</td>
+                <!-- <td style="border: 1px solid black;">
+                    @foreach($item['product_items_manufact'] ?? [] as $item_manufact)
                     <ul>
-                        <li>{{ $item_manufact['quantity_type_of_piece'] }}: {{$item_manufact['type_of_piece']}}</li>
-                        <li>{{ $item_manufact['type_caracterist_manu'] }}</li>
-                        <li>Peso: {{ $item_manufact['manu_weight'] }}</li>
-                        <li>Altura: {{ $item_manufact['manu_length'] }}</li>
+                        <li>{{ $item_manufact['quantity_type_of_piece'] ?? '' }}: {{ $item_manufact['type_of_piece'] ?? '' }}</li>
+                        <li>{{ $item_manufact['type_caracterist_manu'] ?? '' }}</li>
+                        <li>Peso: {{ $item_manufact['manu_weight'] ?? '' }}</li>
+                        <li>Altura: {{ $item_manufact['manu_length'] ?? '' }}</li>
                     </ul>
                     @endforeach
-                </td>
-                <td style="border: 1px solid black;">{{ $item['description'] }}</td>
+                </td> -->
+                <td style="border: 1px solid black;">{{ $item['description'] ?? 'N/A' }}</td>
             </tr>
+            @endif
             @endforeach
         </tbody>
     </table>

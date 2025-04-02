@@ -82,6 +82,25 @@ class QuoterController extends Controller
         return $pdf->download('quoter.pdf');
     }
 
+    public function downloadPdf($id)
+    {
+        $quoter = Quoter::find($id);
+
+        if (!$quoter) {
+            return response()->json(['error' => 'Cotización no encontrada'], 404);
+        }
+
+        // Decodifica los campos JSON
+        $quoter->invoice_general_data = json_decode($quoter->invoice_general_data, true) ?: [];
+        $quoter->product_general_data = json_decode($quoter->product_general_data, true) ?: [];
+        $quoter->order_terms = json_decode($quoter->order_terms, true) ?: [];
+
+        $pdf = PDF::loadView('pdf', compact('quoter'))
+            ->setPaper('A4', 'portrait')
+            ->setOptions(['dpi' => 150, 'defaultFont' => 'sans-serif']);
+
+        return $pdf->download("cotizacion_{$id}.pdf");
+    }
     /**
      * Display the specified resource.
      */
