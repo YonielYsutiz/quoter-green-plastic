@@ -101,6 +101,46 @@ class QuoterController extends Controller
 
         return $pdf->download("cotizacion_{$id}.pdf");
     }
+
+    public function downloadOtAdmon($id)
+    {
+        $quoter = Quoter::find($id);
+
+        if (!$quoter) {
+            return response()->json(['error' => 'Cotización no encontrada'], 404);
+        }
+
+        // Decodifica los campos JSON
+        $quoter->invoice_general_data = json_decode($quoter->invoice_general_data, true) ?: [];
+        $quoter->product_general_data = json_decode($quoter->product_general_data, true) ?: [];
+        $quoter->order_terms = json_decode($quoter->order_terms, true) ?: [];
+
+        $pdf = PDF::loadView('otAdmon', compact('quoter'))
+            ->setPaper('A4', 'portrait')
+            ->setOptions(['dpi' => 150, 'defaultFont' => 'sans-serif']);
+
+        return $pdf->download("cotizacionOtAdmon_{$id}.pdf");
+    }
+
+    public function downloadOtProduct($id)
+    {
+        $quoter = Quoter::find($id);
+
+        if (!$quoter) {
+            return response()->json(['error' => 'Cotización no encontrada'], 404);
+        }
+
+        // Decodifica los campos JSON
+        $quoter->invoice_general_data = json_decode($quoter->invoice_general_data, true) ?: [];
+        $quoter->product_general_data = json_decode($quoter->product_general_data, true) ?: [];
+        $quoter->order_terms = json_decode($quoter->order_terms, true) ?: [];
+
+        $pdf = PDF::loadView('otProduct', compact('quoter'))
+            ->setPaper('A4', 'portrait')
+            ->setOptions(['dpi' => 150, 'defaultFont' => 'sans-serif']);
+
+        return $pdf->download("cotizacionOtProduct_{$id}.pdf");
+    }
     /**
      * Display the specified resource.
      */
