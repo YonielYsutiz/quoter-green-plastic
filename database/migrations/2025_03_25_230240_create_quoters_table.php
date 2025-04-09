@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('quoters', function (Blueprint $table) {
             $table->id();
             $table->string('client');
-            $table->string('nit')->unique();
+            $table->string('nit')->nullable();
+            $table->string('quoter')->unique();
             $table->string('delivery_address')->nullable();
             $table->string('purchase_order')->nullable();
             $table->string('business_contact')->nullable();

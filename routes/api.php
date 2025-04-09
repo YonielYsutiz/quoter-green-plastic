@@ -38,3 +38,5 @@ Route::get('/quoters', [QuoterController::class, 'index']);
 Route::get('/quoters/{id}/download', [QuoterController::class, 'downloadPdf']);
 Route::get('/quoters/{id}/downloadOtAdmon', [QuoterController::class, 'downloadOtAdmon']);
 Route::get('/quoters/{id}/downloadOtProduct', [QuoterController::class, 'downloadOtProduct']);
+Route::get('/quoters/{id}', [QuoterController::class, 'getQuoter']);
+Route::put('/quoters/update/{id}', [QuoterController::class, 'UpdateQuoter']);

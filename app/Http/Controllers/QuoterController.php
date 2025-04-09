@@ -25,6 +25,47 @@ class QuoterController extends Controller
         return response()->json($quoters);
     }
 
+    public function getQuoter($id)
+    {
+        $quoter = Quoter::findOrFail($id);
+
+        $quoter["invoice_general_data"] = json_decode($quoter->invoice_general_data, true);
+        $quoter["order_terms"] = json_decode($quoter->order_terms, true);
+        $quoter["product_general_data"] = json_decode($quoter->product_general_data, true);
+
+        return response()->json($quoter);
+    }
+
+    public function UpdateQuoter(Request $request, $id)
+    {
+
+        $quoter = Quoter::findOrFail($id);
+
+        if ($request->has('invoice_general_data')) {
+            $quoter->invoice_general_data = json_encode($request->invoice_general_data);
+        }
+
+        if ($request->has('order_terms')) {
+            $quoter->order_terms = json_encode($request->order_terms);
+        }
+
+        if ($request->has('product_general_data')) {
+            $quoter->product_general_data = json_encode($request->product_general_data);
+        }
+
+        $quoter->save();
+
+        $quoter->refresh(); // Asegurarse de tener los últimos datos
+        $quoter->invoice_general_data = json_decode($quoter->invoice_general_data, true) ?: [];
+        $quoter->product_general_data = json_decode($quoter->product_general_data, true) ?: [];
+        $quoter->order_terms = json_decode($quoter->order_terms, true) ?: [];
+
+        $pdf = PDF::loadView('otProduct', compact('quoter'))
+            ->setPaper('A4', 'portrait')
+            ->setOptions(['dpi' => 150, 'defaultFont' => 'sans-serif']);
+
+        return $pdf->download("cotizacionOtProduct_{$id}.pdf");
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -49,6 +90,7 @@ class QuoterController extends Controller
         $quoter = Quoter::create([
             'client' => $request->client,
             'nit' => $request->nit,
+            'quoter' => $request->quoter,
             'delivery_address' => $request->delivery_address,
             'purchase_order' => $request->purchase_order,
             'business_contact' => $request->business_contact,

@@ -17,6 +17,7 @@ class Quoter extends Model
     protected $fillable = [
         'client',
         'nit',
+        'quoter',
         'delivery_address',
         'purchase_order',
         'business_contact',
