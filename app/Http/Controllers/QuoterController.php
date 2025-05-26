@@ -144,6 +144,30 @@ class QuoterController extends Controller
         return $pdf->download("cotizacion_{$id}.pdf");
     }
 
+    public function generateEmptyPdfTemplate()
+    {
+        // Crear estructura vacía
+        $emptyQuoter = [
+            'client' => '',
+            'nit' => '',
+            'quoter' => '',
+            'delivery_address' => '',
+            'purchase_order' => '',
+            'business_contact' => '',
+            'phone_contact' => '',
+            'type_order' => '',
+            'invoice_general_data' => [],
+            'order_terms' => [],
+            'product_general_data' => []
+        ];
+
+        $pdf = PDF::loadView('pdfEmpty', ['quoter' => $emptyQuoter])
+            ->setPaper('A4', 'portrait')
+            ->setOptions(['dpi' => 150, 'defaultFont' => 'sans-serif']);
+
+        return $pdf->download('cotizacion_empty.pdf');
+    }
+
     public function downloadOtAdmon($id)
     {
         $quoter = Quoter::find($id);
@@ -157,7 +181,7 @@ class QuoterController extends Controller
         $quoter->product_general_data = json_decode($quoter->product_general_data, true) ?: [];
         $quoter->order_terms = json_decode($quoter->order_terms, true) ?: [];
 
-        $pdf = PDF::loadView('otAdmon', compact('quoter'))
+        $pdf = PDF::loadView('otAdmonPdf', compact('quoter'))
             ->setPaper('A4', 'portrait')
             ->setOptions(['dpi' => 150, 'defaultFont' => 'sans-serif']);
 

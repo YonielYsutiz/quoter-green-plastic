@@ -40,3 +40,4 @@ Route::get('/quoters/{id}/downloadOtAdmon', [QuoterController::class, 'downloadO
 Route::get('/quoters/{id}/downloadOtProduct', [QuoterController::class, 'downloadOtProduct']);
 Route::get('/quoters/{id}', [QuoterController::class, 'getQuoter']);
 Route::put('/quoters/update/{id}', [QuoterController::class, 'UpdateQuoter']);
+Route::get('/quoter/empty', [QuoterController::class, 'generateEmptyPdfTemplate']);

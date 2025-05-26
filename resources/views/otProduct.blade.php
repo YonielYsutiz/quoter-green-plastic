@@ -107,22 +107,22 @@
         <tr>
             <th style="width: 20%;">OT</th>
             <td style="width: 30%; text-align: left;">fecha orden</td>
-            <td style="width: 50%; text-align: left;">12/12/24</td>
+            <td style="width: 50%; text-align: left;">{{ $quoter->created_at }}</td>
         </tr>
         <tr>
             <td style="border: none;"></td>
             <td style="text-align: left;">Fecha de fabricación</td>
-            <td style="text-align: left;">12/12/24</td>
+            <td style="text-align: left;">{{ $quoter->invoice_general_data['date_of_manufacture']}}</td>
         </tr>
         <tr>
             <td style="border: none;"></td>
             <td style="text-align: left;">Fecha compromiso entrega</td>
-            <td style="text-align: left;">12/12/24</td>
+            <td style="text-align: left;">{{ $quoter->invoice_general_data['delivery_date'] }}</td>
         </tr>
         <tr>
             <td style="border: none;"></td>
             <td style="text-align: left;">Comercial a cargo</td>
-            <td style="text-align: left;">0</td>
+            <td style="text-align: left;"> {{$quoter->invoice_general_data['commercial_in_charge'] }}</td>
         </tr>
     </table>
 
@@ -131,65 +131,82 @@
     <table>
         <tr>
             <td style="width: 70%; text-align: left;"><strong>Cantidad a Fabricar</strong></td>
-            <td style="width: 30%;">0</td>
+            <td style="width: 30%;">{{ $quoter['invoice_general_data']['invoice_totals']['manufacturing_units']}}</td>
         </tr>
     </table>
 
     <div class="product-title">Como se debe Fabricar</div>
-
     <table>
-        <tr>
-            <th style="width: 30%;">Producto</th>
-            <th style="width: 10%;">CANT</th>
-            <th style="width: 15%;">TIPO</th>
-            <th style="width: 15%;">LARGO</th>
-            <th style="width: 15%;">TONT UND</th>
-            <th style="width: 15%;">PESO</th>
-        </tr>
-        <tr>
-            <td>Listone Superiores</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>Dormiente 0</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>Listones Inferiores</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>Tacos</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
-            <td></td>
-        </tr>
+        <tbody>
+            @foreach((array)$quoter->product_general_data as $item)
+            @if(is_array($item) && !empty($item['product_items_manufact']))
+            <tr>
+                <th style="width: 30%;">Producto</th>
+                <th style="width: 10%;">CANT</th>
+                <th style="width: 15%;">TIPO</th>
+                <th style="width: 15%;">LARGO</th>
+                <th style="width: 15%;">TONT UND</th>
+                <th style="width: 15%;">PESO</th>
+            </tr>
+            @foreach($item['product_items_manufact'] as $piece)
+            <tr>
+                <td> @switch($piece['type_of_piece'])
+                    @case('listones_superiores') Listones Superiores @break
+                    @case('durmiente') Durmiente @break
+                    @case('tornillos') Tornillos @break
+                    @default {{ ucfirst(str_replace('_', ' ', $piece['type_of_piece'])) }}
+                    @endswitch
+                </td>
+                <td>{{ $piece['quantity_type_of_piece'] ?? '0' }}</td>
+                <td>{{ $piece['type_caracterist_manu'] ?? 'N/A' }}</td>
+                <td>{{ $piece['manu_length'] ?? '0' }}</td>
+                <td>{{ $piece['manu_total_und'] ?? '0' }}</td>
+                <td>{{ $piece['manu_weight'] ?? '0' }}</td>
+            </tr>
+            @endforeach
+            <!-- <tr>
+                <td>Dormiente 0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Listones Inferiores</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Tacos</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+            </tr> -->
+            @endif
+            @endforeach
+        </tbody>
     </table>
     <hr>
 
     <table>
-        <tr>
-            <th style="width: 50%;">Descripción</th>
-            <th style="width: 50%;">Peso</th>
-        </tr>
-        <tr>
-            <td>0</td>
-            <td>0</td>
-        </tr>
+        <tbody>
+            @foreach((array)$quoter->product_general_data as $item)
+            <tr>
+                <th style="width: 50%;">Descripción</th>
+                <th style="width: 50%;">Peso</th>
+            </tr>
+            <tr>
+                <td> {{ $item['description'] ?? 'Sin descripción' }}</td>
+                <td></td>
+            </tr>
+            @endforeach
+        <tbody>
     </table>
 
     <table>
@@ -197,20 +214,16 @@
             <th colspan="2">Como se fabrico - Tamaños y Consumo (Diligencia produccion)</th>
         </tr>
         <tr>
-            <td style="width: 50%;">01/04/2025</td>
-            <td style="width: 50%;">0</td>
+            <td>01/04/2025</td>
+            <td style="width: 70%; height:60px;"> </td>
         </tr>
         <tr>
             <td>ITEM A: PARROLOGOS</td>
-            <td>01/04/2025</td>
+            <td style="width: 70%; height:60px;"> </td>
         </tr>
         <tr>
             <td>ITEM B: CONTINUARIO EN TIRO</td>
-            <td>01/04/2025</td>
-        </tr>
-        <tr>
-            <td>Comercial a Cargo</td>
-            <td>0</td>
+            <td style="width: 70%; height: 70px;"> </td>
         </tr>
     </table>
 
@@ -230,7 +243,7 @@
         </tr>
     </table>
 
-    <!-- Stock GPC -->
+    <!-- Stock GPC
     <table>
         <tr>
             <th style="width: 50%;">STOCK GPC</th>
@@ -240,7 +253,7 @@
             <td>Dilatacion entre Durmientes</td>
             <th>DILATACION PROPORCIONAL</th>
         </tr>
-    </table>
+    </table> -->
 
 </body>
 
