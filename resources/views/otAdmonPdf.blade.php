@@ -84,7 +84,7 @@
             font-size: 9pt;
         }
 
-        <style>.checkbox {
+        .checkbox {
             display: inline-block;
             width: 20px;
             /* Aumenté el ancho */
