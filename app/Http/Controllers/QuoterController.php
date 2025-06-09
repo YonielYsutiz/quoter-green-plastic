@@ -87,6 +87,24 @@ class QuoterController extends Controller
             'product_general_data' => 'required',
         ]);
 
+        $productData = $request->product_general_data;
+
+        foreach ($productData  as $product) {
+            if (isset($product['image_reference']) && strpos($product['image_reference'], 'base64') !== false) {
+                $image = $product['image_reference'];
+                preg_match("/data:image\/(.*?);base64,(.*)/", $image, $matches);
+                $extension = $matches[1];
+                $base64Data = $matches[2];
+
+                $imageName = uniqid('estiba_') . '.' . $extension;
+                $imagePath = public_path('images/estibas/' . $imageName);
+                file_put_contents($imagePath, base64_decode($base64Data));
+
+                // Guardamos la ruta pública para usarla en el PDF
+                $product['image_reference'] = asset('images/estibas/' . $imageName);
+            }
+        }
+
         $quoter = Quoter::create([
             'client' => $request->client,
             'nit' => $request->nit,
@@ -115,6 +133,7 @@ class QuoterController extends Controller
             $quoter->product_general_data,
             true
         );
+
 
         // Generamos el PDF a partir de la vista y los datos
         $pdf = PDF::loadView('quoter', compact('quoter'))->setPaper('A4', 'portrait')
